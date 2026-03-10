@@ -1,0 +1,44 @@
+[Unit]
+Description=DynDNS Update Forwarding Server
+After=network-online.target
+
+[Service]
+Type=simple
+User=dyndnsupdateserver
+EnvironmentFile=-/opt/dyndns-update-server/.env
+EnvironmentFile=-/opt/dyndns-update-server/.secrets
+WorkingDirectory=/opt/dyndns-update-server
+ExecStart=/usr/bin/python3 /opt/dyndns-update-server/dyndns-update-server.py
+Restart=on-failure
+RestartSec=10s
+KillSignal=SIGINT
+
+# Hardening
+RemoveIPC=yes
+ProtectSystem=strict
+PrivateTmp=yes
+ProtectHome=yes
+PrivateDevices=yes
+PrivateUsers=self
+ProtectClock=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectControlGroups=strict
+ProtectHostname=yes
+ProtectKernelTunables=yes
+ProtectProc=invisible
+ProcSubset=pid
+RestrictSUIDSGID=yes
+LockPersonality=yes
+NoNewPrivileges=yes
+RestrictRealtime=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=default.target

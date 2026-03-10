@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "editorconfig.editorconfig",
+        "edwinhuish.better-comments-next",
+        "ms-python.python",
+        "ms-python.isort",
+        "ms-python.debugpy",
+        "ms-python.black-formatter"
+    ]
+}
